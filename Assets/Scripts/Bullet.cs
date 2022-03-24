@@ -1,0 +1,25 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Bullet : MonoBehaviour
+{
+    public float speed = 10.0f;
+    public int damage = 1;
+
+
+    void OnTriggerEnter(Collider other)
+    {
+        PlayerCharacter player = other.GetComponent<PlayerCharacter>();
+        if (player != null)
+        {
+            player.Hurt(damage);
+        }
+        Destroy(this.gameObject);
+    }
+    void Update()
+    {
+        transform.Translate(0, 0, speed * Time.deltaTime);
+    }
+
+}
