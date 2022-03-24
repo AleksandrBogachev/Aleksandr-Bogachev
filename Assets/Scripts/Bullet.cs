@@ -4,25 +4,22 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    public float speed = 10.0f;
+    public int damage = 1;
 
 
-    private Transform _target;
-    private float _speed;
-
-    public void Init(Transform target, float lifeTime, float speed)
-
-
+    void OnTriggerEnter(Collider other)
     {
-        _target = target;
-        _speed = speed;
-        Destroy(gameObject, lifeTime);
-
-
+        PlayerCharacter player = other.GetComponent<PlayerCharacter>();
+        if (player != null)
+        {
+            player.Hurt(damage);
+        }
+        Destroy(this.gameObject);
+    }
+    void Update()
+    {
+        transform.Translate(0, 0, speed * Time.deltaTime);
     }
 
-    void FixedUpdate()
-    {
-        
-        transform.position += transform.forward * _speed * Time.fixedDeltaTime;
-    }
 }
